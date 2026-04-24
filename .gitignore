@@ -1,5 +1,13 @@
+# Python/Django
 venv/
-*.pyc
 __pycache__/
-db.sqlite4
+*.pyc
+
+# Database
+db.sqlite3
+
+# OS specific
 .DS_Store
+
+# Local settings
+.env
