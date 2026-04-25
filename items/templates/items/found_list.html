@@ -1,0 +1,18 @@
+<h1>Found Items</h1>
+
+<a href="{% url 'create_found' %}">Post Found Item</a>
+
+{% for item in items %}
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+        <p><b>Location:</b> {{ item.location }}</p>
+        <p><b>Date:</b> {{ item.date }}</p>
+
+        {% if item.image %}
+            <img src="{{ item.image.url }}" width="150">
+        {% endif %}
+    </div>
+{% empty %}
+    <p>No found items yet.</p>
+{% endfor %}
