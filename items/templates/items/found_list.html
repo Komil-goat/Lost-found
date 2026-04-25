@@ -1,18 +1,62 @@
-<h1>Found Items</h1>
+{% load static %}
 
-<a href="{% url 'create_found' %}">Post Found Item</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Found Items</title>
 
-{% for item in items %}
-    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.description }}</p>
-        <p><b>Location:</b> {{ item.location }}</p>
-        <p><b>Date:</b> {{ item.date }}</p>
+    <link rel="stylesheet" href="{% static 'items/found_list.css' %}">
+</head>
 
-        {% if item.image %}
-            <img src="{{ item.image.url }}" width="150">
-        {% endif %}
+<body>
+
+<div class="list-container">
+
+    <div class="header">
+        <h1>🔍 Found Items</h1>
+        <p>Browse items found on campus</p>
+
+        <a href="{% url 'create_found' %}" class="btn btn-primary">
+            + Post Found Item
+        </a>
     </div>
-{% empty %}
-    <p>No found items yet.</p>
-{% endfor %}
+
+    <div class="items-grid">
+
+        {% for item in items %}
+
+        <div class="item-card">
+
+            {% if item.image %}
+                <img class="item-image" src="{{ item.image.url }}">
+            {% endif %}
+
+            <div class="item-content">
+
+                <h3 class="item-title">{{ item.title }}</h3>
+
+                <p class="item-meta">📍 {{ item.location }}</p>
+                <p class="item-meta">📅 {{ item.date }}</p>
+                <p class="item-meta">👤 {{ item.user.username }}</p>
+
+                <p class="item-description">
+                    {{ item.description|truncatewords:20 }}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p class="empty">No items found yet 😢</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
