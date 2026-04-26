@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def item_list(request, post_type):
-    items = ItemPost.objects.filter(post_type=post_type, resolved=False)
+    items = ItemPost.objects.filter(post_type=post_type, claimed=False)
     return render(request, 'items/list_item.html', {
         'items': items,
         'post_type': post_type
@@ -46,8 +46,7 @@ def claim_item(request, item_id):
 def confirmations(request):
     items = ItemPost.objects.filter(
         user=request.user,
-        claimed=True,
-        resolved=False
+        claimed=True
     )
 
     return render(request, 'items/confirmations.html', {
