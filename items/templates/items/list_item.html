@@ -79,7 +79,7 @@
 
                 {% if user != item.user and not item.claimed %}
                     <a href="{% url 'claim_item' item.id %}" class="btn btn-primary">
-                        It's mine!
+                        Confirm Handover
                     </a>
                 {% endif %}
 

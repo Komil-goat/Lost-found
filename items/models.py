@@ -15,7 +15,6 @@ class ItemPost(models.Model):
     date = models.DateField()
     image = models.ImageField(upload_to='items/', null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    resolved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     claimed = models.BooleanField(default=False)
 
