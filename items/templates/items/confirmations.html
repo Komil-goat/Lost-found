@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmations</title>
+    <link rel="stylesheet" href="{% static 'items/found_list.css' %}">
+</head>
+<body>
+
+<div class="list-container">
+    <div class="header">
+        <h1>Confirmations</h1>
+        <p>Items marked as claimed</p>
+    </div>
+
+    <div class="items-grid">
+
+        {% for item in items %}
+        <div class="item-card">
+            <div class="item-content">
+
+                <h3 class="item-title">{{ item.title }}</h3>
+                <p class="item-meta">📍 {{ item.location }}</p>
+                <p class="item-description">
+                    {{ item.description|truncatewords:20 }}
+                </p>
+
+                <a href="{% url 'resolve_item' item.id %}" class="btn btn-primary">
+                    Delete Listing
+                </a>
+
+            </div>
+        </div>
+        {% empty %}
+        <p class="empty">No confirmations</p>
+        {% endfor %}
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -65,6 +65,30 @@
                     {{ item.description|truncatewords:20 }}
                 </p>
 
+
+                {% if item.user.phone_number %}
+                    <button onclick="this.nextElementSibling.style.display='block'">
+                        Contact
+                    </button>
+
+                    <p style="display:none;">
+                        📞 {{ item.user.phone_number }}
+                    </p>
+                {% endif %}
+
+
+                {% if user != item.user and not item.claimed %}
+                    <a href="{% url 'claim_item' item.id %}" class="btn btn-primary">
+                        It's mine!
+                    </a>
+                {% endif %}
+
+                {% if item.claimed %}
+                    <span style="color: green; font-weight: bold;">
+                        Claimed
+                    </span>
+                {% endif %}
+
             </div>
 
         </div>

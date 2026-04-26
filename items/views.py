@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import ItemPost
 from .forms import FoundItemForm, LostItemForm
 from django.contrib.auth.decorators import login_required
@@ -30,3 +30,35 @@ def create_item(request, post_type):
         'form': form,
         'post_type': post_type
     })
+
+
+
+
+@login_required
+def claim_item(request, item_id):
+    item = get_object_or_404(ItemPost, id=item_id)
+    item.claimed = True
+    item.save()
+    return redirect('found_list')
+
+
+@login_required
+def confirmations(request):
+    items = ItemPost.objects.filter(
+        user=request.user,
+        claimed=True,
+        resolved=False
+    )
+
+    return render(request, 'items/confirmations.html', {
+        'items': items
+    })
+
+@login_required
+def resolve_item(request, item_id):
+    item = get_object_or_404(ItemPost, id=item_id)
+
+    if item.user == request.user:
+        item.delete()
+
+    return redirect('confirmations')
