@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Found Items</title>
+    <title>{{ post_type|capfirst }} Items</title>
 
     <link rel="stylesheet" href="{% static 'items/found_list.css' %}">
 </head>
@@ -14,12 +14,33 @@
 <div class="list-container">
 
     <div class="header">
-        <h1>🔍 Found Items</h1>
-        <p>Browse items found on campus</p>
 
-        <a href="{% url 'create_found' %}" class="btn btn-primary">
-            + Post Found Item
-        </a>
+        <h1>
+            {% if post_type == "found" %}
+                🔍 Found Items
+            {% else %}
+                ❗ Lost Items
+            {% endif %}
+        </h1>
+
+        <p>
+            {% if post_type == "found" %}
+                Browse items found on campus
+            {% else %}
+                Browse lost items on campus
+            {% endif %}
+        </p>
+
+        {% if post_type == "found" %}
+            <a href="{% url 'create_found' %}" class="btn btn-primary">
+                + Post Found Item
+            </a>
+        {% else %}
+            <a href="{% url 'create_lost' %}" class="btn btn-primary">
+                + Post Lost Item
+            </a>
+        {% endif %}
+
     </div>
 
     <div class="items-grid">
@@ -50,7 +71,7 @@
 
         {% empty %}
 
-        <p class="empty">No items found yet 😢</p>
+        <p class="empty">No {{ post_type }} items yet</p>
 
         {% endfor %}
 

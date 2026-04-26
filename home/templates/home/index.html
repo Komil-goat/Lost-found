@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lost and Found</title>
     <style>
-        /* Simple Flexbox Navbar */
         .navbar {
             display: flex;
-            justify-content: space-between; /* This pushes brand left and profile right */
+            justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
             background-color: #2c3e50;
@@ -18,7 +17,7 @@
         .profile-section {
             display: flex;
             align-items: center;
-            gap: 15px; /* Space between username and logout button */
+            gap: 15px; 
         }
 
         .logout-btn {
@@ -58,6 +57,34 @@
     <div style="padding: 20px; text-align: center;">
         <h1>Welcome to the Lost and Found App!</h1>
     </div>
+
+    <div style="margin-top: 40px; display: flex; justify-content: center; gap: 30px;">
+
+    <a href="{% url 'lost_list' %}" style="
+        padding: 20px 40px;
+        background-color: #e74c3c;
+        color: white;
+        text-decoration: none;
+        font-size: 20px;
+        border-radius: 10px;
+        font-weight: bold;
+    ">
+        Lost Items
+    </a>
+
+    <a href="{% url 'found_list' %}" style="
+        padding: 20px 40px;
+        background-color: #2ecc71;
+        color: white;
+        text-decoration: none;
+        font-size: 20px;
+        border-radius: 10px;
+        font-weight: bold;
+    ">
+        Found Items
+    </a>
+
+</div>
 
 </body>
 </html>

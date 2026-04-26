@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Found Item</title>
+    <title>Create {{ post_type|capfirst }} Item</title>
 
     <link rel="stylesheet" href="{% static 'items/create_found.css' %}">
 </head>
@@ -15,41 +15,45 @@
 
     <div class="form-card">
 
-        <h2>📦 Post Found Item</h2>
-        <p class="subtitle">Fill in the details of the item you found</p>
+        <h2>
+            {% if post_type == "found" %}
+                📦 Post Found Item
+            {% else %}
+                🔍 Post Lost Item
+            {% endif %}
+        </h2>
+
+        <p class="subtitle">
+            Fill in the details of the item you {{ post_type }}
+        </p>
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <!-- TITLE -->
             <div class="form-group">
                 {{ form.title.label_tag }}
                 {{ form.title }}
                 {{ form.title.errors }}
             </div>
 
-            <!-- DESCRIPTION -->
             <div class="form-group">
                 {{ form.description.label_tag }}
                 {{ form.description }}
                 {{ form.description.errors }}
             </div>
 
-            <!-- LOCATION -->
             <div class="form-group">
                 {{ form.location.label_tag }}
                 {{ form.location }}
                 {{ form.location.errors }}
             </div>
 
-            <!-- DATE -->
             <div class="form-group">
                 {{ form.date.label_tag }}
                 {{ form.date }}
                 {{ form.date.errors }}
             </div>
 
-            <!-- IMAGE -->
             <div class="form-group">
                 {{ form.image.label_tag }}
                 {{ form.image }}
@@ -57,14 +61,24 @@
             </div>
 
             <button type="submit" class="btn btn-primary">
-                🚀 Submit Found Item
+                {% if post_type == "found" %}
+                    🚀 Submit Found Item
+                {% else %}
+                    🚀 Submit Lost Item
+                {% endif %}
             </button>
 
         </form>
 
-        <a href="{% url 'found_list' %}" class="btn btn-outline">
-            ← Back to list
-        </a>
+        {% if post_type == "found" %}
+            <a href="{% url 'found_list' %}" class="btn btn-outline">
+                ← Back to list
+            </a>
+        {% else %}
+            <a href="{% url 'lost_list' %}" class="btn btn-outline">
+                ← Back to list
+            </a>
+        {% endif %}
 
     </div>
 
