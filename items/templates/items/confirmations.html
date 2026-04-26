@@ -1,61 +1,42 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Found Items</title>
-
+    <title>Confirmations</title>
     <link rel="stylesheet" href="{% static 'items/found_list.css' %}">
 </head>
-
 <body>
 
 <div class="list-container">
-
     <div class="header">
-        <h1>🔍 Found Items</h1>
-        <p>Browse items found on campus</p>
-
-        <a href="{% url 'create_found' %}" class="btn btn-primary">
-            + Post Found Item
-        </a>
+        <h1>Confirmations</h1>
+        <p>Items marked as claimed</p>
     </div>
 
     <div class="items-grid">
 
         {% for item in items %}
-
         <div class="item-card">
-
-            {% if item.image %}
-                <img class="item-image" src="{{ item.image.url }}">
-            {% endif %}
-
             <div class="item-content">
 
                 <h3 class="item-title">{{ item.title }}</h3>
-
                 <p class="item-meta">📍 {{ item.location }}</p>
-                <p class="item-meta">📅 {{ item.date }}</p>
-                <p class="item-meta">👤 {{ item.user.username }}</p>
-
                 <p class="item-description">
                     {{ item.description|truncatewords:20 }}
                 </p>
 
+                <a href="{% url 'resolve_item' item.id %}" class="btn btn-primary">
+                    Delete Listing
+                </a>
+
             </div>
-
         </div>
-
         {% empty %}
-
-        <p class="empty">No items found yet 😢</p>
-
+        <p class="empty">No confirmations</p>
         {% endfor %}
 
     </div>
-
 </div>
 
 </body>

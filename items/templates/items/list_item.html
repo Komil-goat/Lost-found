@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post_type|capfirst }} Items</title>
+
+    <link rel="stylesheet" href="{% static 'items/found_list.css' %}">
+</head>
+
+<body>
+
+<div class="list-container">
+
+    <div class="header">
+
+        <h1>
+            {% if post_type == "found" %}
+                🔍 Found Items
+            {% else %}
+                ❗ Lost Items
+            {% endif %}
+        </h1>
+
+        <p>
+            {% if post_type == "found" %}
+                Browse items found on campus
+            {% else %}
+                Browse lost items on campus
+            {% endif %}
+        </p>
+
+        {% if post_type == "found" %}
+            <a href="{% url 'create_found' %}" class="btn btn-primary">
+                + Post Found Item
+            </a>
+        {% else %}
+            <a href="{% url 'create_lost' %}" class="btn btn-primary">
+                + Post Lost Item
+            </a>
+        {% endif %}
+
+    </div>
+
+    <div class="items-grid">
+
+        {% for item in items %}
+
+        <div class="item-card">
+
+            {% if item.image %}
+                <img class="item-image" src="{{ item.image.url }}">
+            {% endif %}
+
+            <div class="item-content">
+
+                <h3 class="item-title">{{ item.title }}</h3>
+
+                <p class="item-meta">📍 {{ item.location }}</p>
+                <p class="item-meta">📅 {{ item.date }}</p>
+                <p class="item-meta">👤 {{ item.user.username }}</p>
+
+                <p class="item-description">
+                    {{ item.description|truncatewords:20 }}
+                </p>
+
+
+                {% if item.user.phone_number %}
+                    <button onclick="this.nextElementSibling.style.display='block'">
+                        Contact
+                    </button>
+
+                    <p style="display:none;">
+                        📞 {{ item.user.phone_number }}
+                    </p>
+                {% endif %}
+
+
+                {% if user != item.user and not item.claimed %}
+                    <a href="{% url 'claim_item' item.id %}" class="btn btn-primary">
+                        It's mine!
+                    </a>
+                {% endif %}
+
+                {% if item.claimed %}
+                    <span style="color: green; font-weight: bold;">
+                        Claimed
+                    </span>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p class="empty">No {{ post_type }} items yet</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
