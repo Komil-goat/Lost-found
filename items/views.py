@@ -22,6 +22,7 @@ def create_item(request, post_type):
             item.post_type = post_type
             item.user = request.user
             item.save()
+            form.save_m2m()
             return redirect(f'{post_type}_list')
     else:
         form = form_class()
