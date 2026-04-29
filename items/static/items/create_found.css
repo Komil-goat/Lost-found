@@ -122,3 +122,9 @@ input:focus, textarea:focus {
     border-left: 3px solid var(--error);
     border-radius: 4px;
 }
+
+.tags-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
