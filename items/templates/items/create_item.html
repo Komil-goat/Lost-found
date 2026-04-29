@@ -16,15 +16,11 @@
     <div class="form-card">
 
         <h2>
-            {% if post_type == "found" %}
-                📦 Post Found Item
-            {% else %}
-                🔍 Post Lost Item
-            {% endif %}
+            Report Item 
         </h2>
 
         <p class="subtitle">
-            Fill in the details of the item you {{ post_type }}
+            Fill in the details of the item
         </p>
 
         <form method="post" enctype="multipart/form-data">
@@ -69,11 +65,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">
-                {% if post_type == "found" %}
-                    🚀 Submit Found Item
-                {% else %}
-                    🚀 Submit Lost Item
-                {% endif %}
+                Submit
             </button>
 
         </form>

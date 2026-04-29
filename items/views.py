@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import ItemPost
-from .forms import FoundItemForm, LostItemForm
+from .forms import ItemForm
 from django.contrib.auth.decorators import login_required
 
 @login_required
 def item_list(request, post_type):
-    items = ItemPost.objects.filter(post_type=post_type, claimed=False)
+    items = ItemPost.objects.filter(post_type=post_type)
     return render(request, 'items/list_item.html', {
         'items': items,
         'post_type': post_type
@@ -13,7 +13,7 @@ def item_list(request, post_type):
 
 @login_required
 def create_item(request, post_type):
-    form_class = FoundItemForm if post_type == 'found' else LostItemForm
+    form_class = ItemForm
 
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES)
@@ -40,7 +40,10 @@ def claim_item(request, item_id):
     item = get_object_or_404(ItemPost, id=item_id)
     item.claimed = True
     item.save()
-    return redirect('found_list')
+    if item.post_type == "found":
+        return redirect("found_list")
+    else:
+        return redirect("lost_list")
 
 
 @login_required
