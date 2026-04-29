@@ -31,6 +31,8 @@
             {% endif %}
         </p>
 
+        <a href="{% url 'home' %}" class="btn btn-primary">⬅️ Home</a>
+
         {% if post_type == "found" %}
             <a href="{% url 'create_lost' %}" class="btn btn-primary">
                 + Post Lost Item 
@@ -67,7 +69,9 @@
 
 
                 {% if item.user.phone_number %}
-                    <button onclick="this.nextElementSibling.style.display='block'">
+                    <button onclick="
+                        const p = this.nextElementSibling;
+                        p.style.display = (p.style.display === 'block') ? 'none' : 'block';">
                         Contact
                     </button>
 
