@@ -17,27 +17,27 @@
 
         <h1>
             {% if post_type == "found" %}
-                🔍 Found Items
+                🔍 Items that people found 
             {% else %}
-                ❗ Lost Items
+                ❗ Items people lost 
             {% endif %}
         </h1>
 
         <p>
             {% if post_type == "found" %}
-                Browse items found on campus
+                search for your lost item
             {% else %}
-                Browse lost items on campus
+                search items you found
             {% endif %}
         </p>
 
         {% if post_type == "found" %}
-            <a href="{% url 'create_found' %}" class="btn btn-primary">
-                + Post Found Item
+            <a href="{% url 'create_lost' %}" class="btn btn-primary">
+                + Post Lost Item 
             </a>
         {% else %}
-            <a href="{% url 'create_lost' %}" class="btn btn-primary">
-                + Post Lost Item
+            <a href="{% url 'create_found' %}" class="btn btn-primary">
+                + Post Found Item 
             </a>
         {% endif %}
 
