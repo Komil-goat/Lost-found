@@ -24,7 +24,7 @@ body {
 .profile-section {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .logout-btn {
@@ -55,6 +55,23 @@ body {
     text-decoration: none;
     border-radius: 8px;
     font-size: 16px;
+}
+.profile-btn {
+    background-color: #ffffff1a; 
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease-in-out;
+}
+
+.profile-btn:hover {
+    background-color: white;
+    color: var(--primary);
+    border-color: white;
 }
 
 .btn:hover {

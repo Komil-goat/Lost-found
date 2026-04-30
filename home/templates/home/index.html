@@ -15,15 +15,17 @@
     <div class="logo">
         <strong>Lost & Found</strong>
     </div>
-
+    
     <div class="profile-section">
         {% if user.is_authenticated %}
-        <span><strong>{{ user.username }}</strong></span>
+            <a href="{% url 'profile' %}" class="profile-btn">
+                My Profile
+            </a>
 
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="logout-btn">Log Out</button>
-        </form>
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Log Out</button>
+            </form>
         {% endif %}
     </div>
 </nav>

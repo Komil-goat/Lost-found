@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    
+<div class="profile-container">
+    <a href="{% url 'home' %}" class="back-btn">← Back to Home</a>
+    
+    <h2>My Profile</h2>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="avatar-preview-top">
+            {% if user.avatar %}
+                <img src="{{ user.avatar.url }}" alt="Profile Preview">
+            {% else %}
+                <div class="avatar-placeholder">{{ user.username|first|upper }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label>Profile Picture</label>
+            <div class="avatar-controls">
+                {% if user.avatar %}
+                    <div class="avatar-actions">
+                        <a href="{{ user.avatar.url }}" target="_blank" class="view-btn">View Full Avatar</a>
+                        
+                        <input type="checkbox" name="avatar-clear" id="avatar-clear_id" style="display:none;">
+                        <button type="button" class="delete-btn" onclick="document.getElementById('avatar-clear_id').click(); this.classList.toggle('active');">
+                            Delete Photo
+                        </button>
+                    </div>
+                {% endif %}
+                <input type="file" name="avatar" accept="image/*" class="file-input">
+            </div>
+        </div>
+
+        <div class="other-fields">
+            <div class="form-group">
+                <label>Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label>Email address:</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label>Phone number:</label>
+                {{ form.phone_number }}
+            </div>
+        </div>
+
+        <button type="submit" class="save-btn">Update Profile</button>
+    </form>
+
+    <hr>
+
+    <h3>My Posts</h3>
+    <div class="item-grid">
+        {% for item in user_posts %}
+            <div class="item-card">
+                <h4>{{ item.title }}</h4>
+                <p>{{ item.description|truncatechars:50 }}</p>
+                <p>{{ item.created_at|date:"M j, Y" }}</p>
+            </div>
+        {% empty %}
+            <p>You haven't posted any items yet.</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
