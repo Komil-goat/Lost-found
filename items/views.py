@@ -2,24 +2,31 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import ItemPost, Tag
 from .forms import ItemForm
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
 
 @login_required
 def item_list(request, post_type):
     items = ItemPost.objects.filter(post_type=post_type)
 
-    tag_ids = request.GET.getlist('tag')
+    tag_slugs = request.GET.getlist('tag')
 
-    tag_ids = [int(t) for t in tag_ids if t.isdigit()]
-
-    if tag_ids:
-        items = items.filter(tags__id=tag_ids).distinct()
+    selected_tags = []
+    if tag_slugs:
+        matching_tags = [
+            tag for tag in Tag.objects.all()
+            if slugify(tag.name) in tag_slugs
+        ]
+        selected_tags = [tag.id for tag in matching_tags]
+        items = items.filter(tags__id__in=selected_tags).distinct()
 
     tags = Tag.objects.all()
     
     return render(request, 'items/list_item.html', {
         'items': items,
         'post_type': post_type,
-        'selected_tags': tag_ids
+        'tags': tags,
+        'selected_tags': selected_tags,
+        'selected_slugs': tag_slugs
     })
 
 @login_required

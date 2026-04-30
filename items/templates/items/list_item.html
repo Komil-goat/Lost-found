@@ -48,15 +48,29 @@
 
         <div class="tags-grid">
 
-            <a href="{{ request.path }}" class="tag-link {% if not selected_tags %}active{% endif %}">
+            <a href="{{ request.path }}" class="tag-link {% if not selected_slugs %}active{% endif %}">
                 All
             </a>
 
             {% for tag in tags %}
 
-            <a href="{{ request.path }}?tag={{ tag.id }}" class="tag-link {% if tag.id in selected_tags %}active{% endif %}">
+            {% with tag.name|slugify as slug %}
+
+            {% if slug in selected_slugs %}
+
+            <a href="{{ request.path }}?{% for t in selected_slugs %}{% if t != slug %}tag={{ t }}&{% endif %}{% endfor %}" class="tag-link active">
                 {{ tag.name }}
             </a>
+
+            {% else %}
+
+            <a href="{{ request.path }}?{% for t in selected_slugs %}tag={{ t }}&{% endfor %}tag={{ slug }}" class="tag-link">
+                {{ tag.name }}
+            </a>
+
+            {% endif %}
+
+            {% endwith %}
 
             {% endfor %}
 
