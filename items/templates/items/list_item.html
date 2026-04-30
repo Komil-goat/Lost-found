@@ -17,21 +17,21 @@
 
         <h1>
             {% if post_type == "found" %}
-                🔍 Found Items
+                🔍 Items that people found 
             {% else %}
-                ❗ Lost Items
+                ❗ Items people lost
             {% endif %}
         </h1>
 
         <p>
             {% if post_type == "found" %}
-                Items found by users on campus
+                search for your lost item
             {% else %}
-                Items reported as lost
+                search items you found
             {% endif %}
         </p>
 
-        <a href="{% url 'home' %}" class="btn btn-primary">🏠 Home</a>
+        <a href="{% url 'home' %}" class="btn btn-primary">⬅️ Home</a>
 
         {% if post_type == "found" %}
             <a href="{% url 'create_found' %}" class="btn btn-primary">
@@ -44,6 +44,15 @@
         {% endif %}
 
     </div>
+    
+    <div class="tags-grid">
+        <a href="?type={{ post_type }}" class="tag-link">All</a>
+        {% for tag in tags %}
+            <a href="?type={{ post_type }}&tag={{ tag.id }}" class="tag-link">
+                {{ tag.name }}
+            </a>
+        {% endfor %}
+    </div>    
 
     <div class="items-grid">
 
@@ -67,12 +76,12 @@
                     {{ item.description|truncatewords:20 }}
                 </p>
 
-                {% if item.tags.all %}
-                    <div class="tags">
-                        {% for tag in item.tags.all %}
-                            <span class="tag">{{ tag.name }}</span>
-                        {% endfor %}
-                    </div>
+                {% if item.tags.exists %}
+                <div class="item-tags">
+                    {% for tag in item.tags.all %}
+                        <span class="tag">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
                 {% endif %}
 
                 {% if item.user.phone_number %}

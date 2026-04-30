@@ -13,3 +13,8 @@ class CustomUserCreationForm(UserCreationForm):
         if CustomUser.objects.filter(phone_number=phone_number).exists():
             raise ValidationError("A user with this phone number already exists.")
         return phone_number
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'phone_number', 'avatar']
