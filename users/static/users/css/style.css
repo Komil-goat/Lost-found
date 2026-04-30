@@ -167,3 +167,25 @@ form ul {
 .errorlist {
     animation: shake 0.3s ease-in-out;
 }
+.password-toggle-container {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    gap: 10px;          
+    margin: 10px 0 10px 0;
+    cursor: pointer;
+}
+
+.password-toggle-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0; 
+    cursor: pointer;
+}
+
+.password-toggle-container label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none; 
+}
