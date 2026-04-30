@@ -44,6 +44,15 @@
         {% endif %}
 
     </div>
+    
+    <div class="tags-grid">
+        <a href="?type={{ post_type }}" class="tag-link">All</a>
+        {% for tag in tags %}
+            <a href="?type={{ post_type }}&tag={{ tag.id }}" class="tag-link">
+                {{ tag.name }}
+            </a>
+        {% endfor %}
+    </div>    
 
     <div class="items-grid">
 
@@ -67,6 +76,13 @@
                     {{ item.description|truncatewords:20 }}
                 </p>
 
+                {% if item.tags.exists %}
+                <div class="item-tags">
+                    {% for tag in item.tags.all %}
+                        <span class="tag">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
 
                 {% if item.user.phone_number %}
                     <button onclick="

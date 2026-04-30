@@ -1,14 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import ItemPost
+from .models import ItemPost, Tag
 from .forms import ItemForm
 from django.contrib.auth.decorators import login_required
 
 @login_required
 def item_list(request, post_type):
     items = ItemPost.objects.filter(post_type=post_type)
+
+    tag_id = request.GET.get('tag')
+
+    if tag_id:
+        items = items.filter(tags__id=tag_id)
+
+    tags = Tag.objects.all()
+    
     return render(request, 'items/list_item.html', {
         'items': items,
-        'post_type': post_type
+        'post_type': post_type,
+        'tags': tags
     })
 
 @login_required
