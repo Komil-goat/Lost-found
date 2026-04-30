@@ -1,5 +1,6 @@
 from django import forms
 from .models import ItemPost
+from datetime import date, timedelta
 
 
 class ItemForm(forms.ModelForm):
@@ -10,3 +11,13 @@ class ItemForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date'}),
             'tags': forms.CheckboxSelectMultiple()
         }
+
+    def clean_date(self):
+        d = self.cleaned_data.get('date')
+        today = date.today()
+
+        
+        if not d or d > today or d < today - timedelta(days=30):
+            raise forms.ValidationError("Invalid date")
+
+        return d
