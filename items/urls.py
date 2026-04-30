@@ -12,4 +12,6 @@ urlpatterns = [
     path('confirmations/', views.confirmations, name='confirmations'),
     path('<int:item_id>/resolve/', views.resolve_item, name='resolve_item'),
     path('<int:item_id>/claim/', views.claim_item, name='claim_item'),
+    path('<int:item_id>/edit/', views.edit_item, name='edit_item'),
+    path('<int:item_id>/delete/', views.delete_item, name='delete_item'),
 ]

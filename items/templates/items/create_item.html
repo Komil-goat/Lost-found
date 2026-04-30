@@ -4,7 +4,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create {{ post_type|capfirst }} Item</title>
+    <title>
+        {% if is_edit %}
+            Edit Item
+        {% else %}
+            Create Item
+        {% endif %}
+    </title>
 
     <link rel="stylesheet" href="{% static 'items/create_found.css' %}">
 </head>
@@ -16,11 +22,19 @@
     <div class="form-card">
 
         <h2>
-            Report Item 
+            {% if is_edit %}
+                ✏️ Edit Item
+            {% else %}
+                ➕ Report New Item
+            {% endif %}
         </h2>
 
         <p class="subtitle">
-            Fill in the details of the item
+            {% if is_edit %}
+                Update the details of your item
+            {% else %}
+                Fill in the details of the item you found or lost
+            {% endif %}
         </p>
 
         <form method="post" enctype="multipart/form-data">
@@ -65,7 +79,11 @@
             </div>
 
             <button type="submit" class="btn btn-primary">
-                Submit
+                {% if is_edit %}
+                    💾 Save Changes
+                {% else %}
+                    🚀 Submit
+                {% endif %}
             </button>
 
         </form>

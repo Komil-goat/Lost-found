@@ -37,8 +37,9 @@ def create_item(request, post_type):
         form = form_class()
 
     return render(request, 'items/create_item.html', {
-        'form': form,
-        'post_type': post_type
+    'form': form,
+    'post_type': post_type,
+    'is_edit': False
     })
 
 
@@ -74,3 +75,35 @@ def resolve_item(request, item_id):
         item.delete()
 
     return redirect('confirmations')
+
+@login_required
+def edit_item(request, item_id):
+    item = get_object_or_404(ItemPost, id=item_id)
+
+    if item.user != request.user:
+        return redirect(f'{item.post_type}_list')
+
+    if request.method == 'POST':
+        form = ItemForm(request.POST, request.FILES, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect(f'{item.post_type}_list')
+    else:
+        form = ItemForm(instance=item)
+
+    return render(request, 'items/create_item.html', {
+        'form': form,
+        'post_type': item.post_type,
+        'is_edit': True
+    })
+
+@login_required
+def delete_item(request, item_id):
+    item = get_object_or_404(ItemPost, id=item_id)
+
+    if item.user == request.user:
+        post_type = item.post_type
+        item.delete()
+        return redirect(f'{post_type}_list')
+
+    return redirect('found_list')

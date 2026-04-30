@@ -91,6 +91,45 @@ body {
     color: white;
 }
 
+.item-card a.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+/* EDIT BUTTON */
+.item-card a.btn-primary {
+    background: #002f64;
+    color: white;
+}
+
+.item-card a.btn-primary:hover {
+    background: #1e40af;
+    transform: translateY(-2px);
+}
+
+.item-card a.btn-outline {
+    background: #fff;
+    border: 1px solid #ef4444;
+    color: #ef4444;
+}
+
+.item-card a.btn-outline:hover {
+    background: #ef4444;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.item-card .owner-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
 .item-tags {
     margin-top: 8px;
     display: flex;
