@@ -7,17 +7,19 @@ from django.contrib.auth.decorators import login_required
 def item_list(request, post_type):
     items = ItemPost.objects.filter(post_type=post_type)
 
-    tag_id = request.GET.get('tag')
+    tag_ids = request.GET.getlist('tag')
 
-    if tag_id:
-        items = items.filter(tags__id=tag_id)
+    tag_ids = [int(t) for t in tag_ids if t.isdigit()]
+
+    if tag_ids:
+        items = items.filter(tags__id=tag_ids).distinct()
 
     tags = Tag.objects.all()
     
     return render(request, 'items/list_item.html', {
         'items': items,
         'post_type': post_type,
-        'tags': tags
+        'selected_tags': tag_ids
     })
 
 @login_required
