@@ -90,3 +90,44 @@ body {
     background: var(--primary);
     color: white;
 }
+
+.item-card a.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+/* EDIT BUTTON */
+.item-card a.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.item-card a.btn-primary:hover {
+    background: #1e40af;
+    transform: translateY(-2px);
+}
+
+/* DELETE BUTTON */
+.item-card a.btn-outline {
+    background: #fff;
+    border: 1px solid #ef4444;
+    color: #ef4444;
+}
+
+.item-card a.btn-outline:hover {
+    background: #ef4444;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* BUTTON GROUP ALIGNMENT (optional but nice) */
+.item-card .owner-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
