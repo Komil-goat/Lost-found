@@ -131,7 +131,7 @@ body {
 }
 
 .item-tags {
-    margin-top: 8px;
+    margin: 8px 0 8px;
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
@@ -141,9 +141,9 @@ body {
     background: snow;
     color: var(--primary);
     padding: 4px 10px;
-    border-radius: 12px;
-    border-width: medium;
-    font-size: 12px;
+    border-radius: 15px;
+    border: 1px solid #011b3a;
+    font-size: 15px;
     font-weight: 500;
 }
 
@@ -151,7 +151,7 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
     margin: 15px 0 25px;
 }
 
@@ -159,14 +159,20 @@ body {
     padding: 6px 12px;
     background: snow;
     color: var(--primary);
-    border-radius: 20px;
+    border-radius: 15px;
+    border: 1px solid #011b3a;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 17px;
     font-weight: 500;
     transition: 0.2s;
 }
 
 .tag-link:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.tag-link.active {
     background: var(--primary);
     color: white;
 }
