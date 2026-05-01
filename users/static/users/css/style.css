@@ -189,3 +189,25 @@ form ul {
     cursor: pointer;
     user-select: none; 
 }
+
+.auth-error-container {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.error-box-unified {
+    background-color: #fee2e2;
+    color: black;  
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #fecaca;
+    font-size: 0.875rem;
+    font-weight: bold;
+    text-align: center;
+    list-style: none;         
+}
+
+.form-group {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}

@@ -8,11 +8,18 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = UserCreationForm.Meta.fields + ('phone_number',)
 
-    def clean_phone_number(self):
-        phone_number = self.cleaned_data.get('phone_number')
-        if CustomUser.objects.filter(phone_number=phone_number).exists():
-            raise ValidationError("A user with this phone number already exists.")
-        return phone_number
+    def clean(self):
+        cleaned_data = super().clean()
+        username = self.cleaned_data.get("username")
+        phone_number = self.cleaned_data.get("phone_number")
+
+        user_exists = CustomUser.objects.filter(username=username).exists()
+        phone_exists = CustomUser.objects.filter(phone_number=phone_number).exists()
+
+        if user_exists or phone_exists:
+            raise ValidationError("Invalid credentials")
+
+        return cleaned_data
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
