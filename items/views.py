@@ -3,6 +3,7 @@ from .models import ItemPost, Tag
 from .forms import ItemForm
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
+from django.http import JsonResponse
 
 @login_required
 def item_list(request, post_type):
@@ -123,3 +124,29 @@ def item_detail(request, item_id):
     return render(request, 'items/item_detail.html', {
         'item': item
     })
+
+@login_required
+def match_items(request):
+    query = request.GET.get('q', '').strip()
+    post_type = request.GET.get('type')
+
+    opposite_type = 'found' if post_type == 'lost' else 'lost'
+
+    results = []
+
+    if query:
+        items = ItemPost.objects.filter(
+            post_type=opposite_type,
+            title__icontains=query,
+            claimed=False
+        )[:5]
+
+        for item in items:
+            results.append({
+                'id': item.id,
+                'title': item.title,
+                'location': item.location,
+                'date': item.date.strftime('%Y-%m-%d'),
+            })
+
+    return JsonResponse({'results': results})
