@@ -35,12 +35,12 @@
             <a href="{% url 'home' %}" class="btn btn-primary">⬅️ Home</a>
 
             {% if post_type == "found" %}
-            <a href="{% url 'create_found' %}" class="btn btn-primary">
-                + Post Found Item
-            </a>
-            {% else %}
             <a href="{% url 'create_lost' %}" class="btn btn-primary">
                 + Post Lost Item
+            </a>
+            {% else %}
+            <a href="{% url 'create_found' %}" class="btn btn-primary">
+                + Post Found Item
             </a>
             {% endif %}
 
@@ -58,13 +58,15 @@
 
             {% if slug in selected_slugs %}
 
-            <a href="{{ request.path }}?{% for t in selected_slugs %}{% if t != slug %}tag={{ t }}&{% endif %}{% endfor %}" class="tag-link active">
+            <a href="{{ request.path }}?{% for t in selected_slugs %}{% if t != slug %}tag={{ t }}&{% endif %}{% endfor %}"
+                class="tag-link active">
                 {{ tag.name }}
             </a>
 
             {% else %}
 
-            <a href="{{ request.path }}?{% for t in selected_slugs %}tag={{ t }}&{% endfor %}tag={{ slug }}" class="tag-link">
+            <a href="{{ request.path }}?{% for t in selected_slugs %}tag={{ t }}&{% endfor %}tag={{ slug }}"
+                class="tag-link">
                 {{ tag.name }}
             </a>
 
@@ -97,6 +99,10 @@
                     <p class="item-description">
                         {{ item.description|truncatewords:20 }}
                     </p>
+
+                    <a href="{% url 'item_detail' item.id %}" class="btn btn-outline">
+                        View More
+                    </a>
 
                     {% if item.tags.exists %}
                     <div class="item-tags">
@@ -137,7 +143,7 @@
                             ✏ Edit
                         </a>
 
-                        <a href="{% url 'delete_item' item.id %}" class="btn btn-outline"
+                        <a href="{% url 'delete_item' item.id %}" class="btn btn-danger"
                             onclick="return confirm('Are you sure you want to delete this item?')">
                             🗑 Delete
                         </a>

@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ item.title }}</title>
+
+    <link rel="stylesheet" href="{% static 'items/found_list.css' %}">
+</head>
+
+<body>
+
+<div class="list-container">
+
+    <div class="item-card" style="max-width: 800px; margin: auto;">
+
+        {% if item.image %}
+        <img class="item-image" src="{{ item.image.url }}" style="height: 350px; object-fit: cover;">
+        {% endif %}
+
+        <div class="item-content">
+
+            <h1 class="item-title">{{ item.title }}</h1>
+
+            <p class="item-meta">📍 {{ item.location }}</p>
+            <p class="item-meta">📅 {{ item.date }}</p>
+            <p class="item-meta">👤 {{ item.user.username }}</p>
+
+            <hr>
+
+            <h3>Description</h3>
+
+            <p class="full-description">
+                {{ item.description }}
+            </p>
+
+            {% if item.tags.exists %}
+            <div class="item-tags">
+                {% for tag in item.tags.all %}
+                <span class="tag">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <hr>
+
+            {% if item.user.phone_number %}
+            <p class="item-meta">📞 {{ item.user.phone_number }}</p>
+            {% endif %}
+
+            {% if item.claimed %}
+                <p style="color: green; font-weight: bold;">✅ Claimed</p>
+            {% else %}
+                <p style="color: orange; font-weight: bold;">⏳ Not claimed</p>
+            {% endif %}
+
+            {% if user.is_authenticated and user != item.user and not item.claimed %}
+            <a href="{% url 'claim_item' item.id %}" class="btn btn-primary">
+                ✔ Claim Item
+            </a>
+            {% endif %}
+
+            {% if user == item.user %}
+
+            <div class="owner-actions" style="margin-top: 15px;">
+
+                <a href="{% url 'edit_item' item.id %}" class="btn btn-primary">
+                    ✏ Edit
+                </a>
+
+                <a href="{% url 'delete_item' item.id %}" class="btn btn-danger"
+                    onclick="return confirm('Are you sure you want to delete this item?')">
+                    🗑 Delete
+                </a>
+
+            </div>
+
+            {% endif %}
+
+            <a href="{% url item.post_type|add:'_list' %}" class="btn btn-outline" style="margin-top: 20px;">
+                ⬅ Back to list
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

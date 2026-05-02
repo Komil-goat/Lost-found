@@ -8,7 +8,7 @@
         {% if is_edit %}
             Edit Item
         {% else %}
-            Create Item
+            Create {{ post_type|capfirst }} Item
         {% endif %}
     </title>
 
@@ -33,7 +33,7 @@
             {% if is_edit %}
                 Update the details of your item
             {% else %}
-                Fill in the details of the item you found or lost
+                Fill in the details of the item
             {% endif %}
         </p>
 

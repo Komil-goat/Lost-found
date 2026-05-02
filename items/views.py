@@ -116,3 +116,10 @@ def delete_item(request, item_id):
         return redirect(f'{post_type}_list')
 
     return redirect('found_list')
+
+@login_required
+def item_detail(request, item_id):
+    item = get_object_or_404(ItemPost, id=item_id)
+    return render(request, 'items/item_detail.html', {
+        'item': item
+    })
