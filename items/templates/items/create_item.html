@@ -121,14 +121,26 @@ titleInput.addEventListener("input", function() {
         .then(data => {
             suggestionsBox.innerHTML = "";
 
+            if (data.results.length > 0) {
+                const title = document.createElement("p");
+                title.textContent = "Maybe you're looking for:";
+                suggestionsBox.appendChild(title);
+            }
+
             data.results.forEach(item => {
-                const div = document.createElement("div");
-                div.classList.add("suggestion-item");
-                div.innerHTML = `
+                const link = document.createElement("a");
+                link.href = `/items/item/${item.id}/`; 
+                link.classList.add("suggestion-item");
+                link.style.display = "block";
+                link.style.textDecoration = "none";
+                link.style.color = "inherit";
+
+                link.innerHTML = `
                     <strong>${item.title}</strong><br>
                     📍 ${item.location} | 📅 ${item.date}
                 `;
-                suggestionsBox.appendChild(div);
+
+                suggestionsBox.appendChild(link);
             });
         });
 });
