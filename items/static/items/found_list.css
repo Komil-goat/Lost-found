@@ -9,8 +9,9 @@
 
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: sans-serif;
     background: var(--bg);
+    color: var(--text);
 }
 
 .list-container {
@@ -74,6 +75,14 @@ body {
     color: var(--text);
 }
 
+.full-description {
+    white-space: pre-line;
+    line-height: 1.6;
+    font-size: 15px;
+    color: var(--text);
+    word-break: break-word;
+}
+
 .empty {
     text-align: center;
     color: var(--muted);
@@ -81,9 +90,15 @@ body {
 
 .btn {
     display: inline-block;
-    padding: 10px 15px;
+    padding: 12px 18px;
     border-radius: 8px;
     text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    transition: 0.2s ease;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-primary {
@@ -91,47 +106,45 @@ body {
     color: white;
 }
 
-.item-card a.btn {
-    display: inline-block;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: 0.2s ease;
+.btn-primary:hover {
+    opacity: 0.9;
 }
 
-/* EDIT BUTTON */
-.item-card a.btn-primary {
-    background: #002f64;
+.btn-outline {
+    background: white;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
     color: white;
 }
 
-.item-card a.btn-primary:hover {
-    background: #1e40af;
-    transform: translateY(-2px);
-}
-
-.item-card a.btn-outline {
-    background: #fff;
-    border: 1px solid #ef4444;
-    color: #ef4444;
-}
-
-.item-card a.btn-outline:hover {
-    background: #ef4444;
+.btn-danger {
+    background: #e74c3c;
     color: white;
-    transform: translateY(-2px);
 }
 
-.item-card .owner-actions {
+.btn-danger:hover {
+    opacity: 0.9;
+}
+
+.owner-actions {
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    align-items: center;
+}
+
+.owner-actions a {
+    padding: 12px 18px;
+    font-size: 14px;
+    border-radius: 8px;
 }
 
 .item-tags {
-    margin: 8px 0 8px;
+    margin: 8px 0;
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
