@@ -104,5 +104,35 @@
 
 </div>
 
+<script>
+const titleInput = document.getElementById("id_title");
+const suggestionsBox = document.getElementById("suggestions");
+
+titleInput.addEventListener("input", function() {
+    const query = this.value;
+
+    if (query.length < 2) {
+        suggestionsBox.innerHTML = "";
+        return;
+    }
+
+    fetch(`/items/match/?q=${query}&type={{ post_type }}`)
+        .then(res => res.json())
+        .then(data => {
+            suggestionsBox.innerHTML = "";
+
+            data.results.forEach(item => {
+                const div = document.createElement("div");
+                div.classList.add("suggestion-item");
+                div.innerHTML = `
+                    <strong>${item.title}</strong><br>
+                    📍 ${item.location} | 📅 ${item.date}
+                `;
+                suggestionsBox.appendChild(div);
+            });
+        });
+});
+</script>
+
 </body>
 </html>
