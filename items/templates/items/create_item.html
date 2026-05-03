@@ -90,14 +90,30 @@
 
         </form>
 
-        {% if post_type == "found" %}
-            <a href="{% url 'lost_list' %}" class="btn btn-outline">
-                ⬅️ Back to list
-            </a>
+        {% if is_edit %}
+
+            {% if post_type == "found" %}
+                <a href="{% url 'found_list' %}" class="btn btn-outline">
+                    ⬅️ Back to list
+                </a>
+            {% else %}
+                <a href="{% url 'lost_list' %}" class="btn btn-outline">
+                    ⬅️ Back to list
+                </a>
+            {% endif %}
+
         {% else %}
-            <a href="{% url 'found_list' %}" class="btn btn-outline">
-                ⬅️ Back to list
-            </a>
+
+            {% if post_type == "found" %}
+                <a href="{% url 'lost_list' %}" class="btn btn-outline">
+                    ⬅️ Back to list
+                </a>
+            {% else %}
+                <a href="{% url 'found_list' %}" class="btn btn-outline">
+                    ⬅️ Back to list
+                </a>
+            {% endif %}
+
         {% endif %}
 
     </div>
