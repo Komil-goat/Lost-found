@@ -127,3 +127,20 @@ input:focus, textarea:focus {
     height: 16px;
     cursor: pointer;
 }
+
+.suggestions-box {
+    margin: 10px 0 10px;
+    background: white;
+}
+
+.suggestion-item {
+    background: #f0f0f0;
+    padding: 10px;
+    border-top: 2px solid var(--primary);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background: #b6b6b6;
+}

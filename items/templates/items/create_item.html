@@ -40,6 +40,8 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
+            <div id="suggestions" class="suggestions-box"></div>
+
             <div class="form-group">
                 {{ form.title.label_tag }}
                 {{ form.title }}
@@ -101,6 +103,50 @@
     </div>
 
 </div>
+
+<script>
+const titleInput = document.getElementById("id_title");
+const suggestionsBox = document.getElementById("suggestions");
+
+titleInput.addEventListener("input", function() {
+    const query = this.value;
+
+    if (query.length < 2) {
+        suggestionsBox.innerHTML = "";
+        return;
+    }
+
+    fetch(`/items/match/?q=${query}&type={{ post_type }}`)
+        .then(res => res.json())
+        .then(data => {
+            suggestionsBox.innerHTML = "";
+
+            if (data.results.length > 0) {
+                const title = document.createElement("p");
+                title.textContent = "Maybe you're looking for:";
+                title.style.textAlign = "center";
+                title.style.fontWeight = "600";
+                suggestionsBox.appendChild(title);
+            }
+
+            data.results.forEach(item => {
+                const link = document.createElement("a");
+                link.href = `/items/item/${item.id}/`; 
+                link.classList.add("suggestion-item");
+                link.style.display = "block";
+                link.style.textDecoration = "none";
+                link.style.color = "inherit";
+
+                link.innerHTML = `
+                    <strong>${item.title}</strong><br>
+                    📍 ${item.location} | 📅 ${item.date}
+                `;
+
+                suggestionsBox.appendChild(link);
+            });
+        });
+});
+</script>
 
 </body>
 </html>
