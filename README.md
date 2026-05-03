@@ -34,7 +34,7 @@ A Django-based web application for reporting and discovering lost and found item
 - **Backend:** Python, Django
 - **Frontend:** HTML, CSS, JavaScript
 - **Database:** SQLite (default Django)
-- **CI/CD:** GitHub Actions
+- **CI:** GitHub Actions
 
 ---
 
