@@ -124,6 +124,8 @@ titleInput.addEventListener("input", function() {
             if (data.results.length > 0) {
                 const title = document.createElement("p");
                 title.textContent = "Maybe you're looking for:";
+                title.style.textAlign = "center";
+                title.style.fontWeight = "600";
                 suggestionsBox.appendChild(title);
             }
 

@@ -130,18 +130,18 @@ input:focus, textarea:focus {
 }
 
 .suggestions-box {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-top: 10px;
+    margin: 10px 0 10px;
     background: white;
 }
 
 .suggestion-item {
+    background: #f0f0f0;
     padding: 10px;
-    border-bottom: 1px solid #eee;
+    border-top: 2px solid var(--primary);
+    border-radius: 8px;
     cursor: pointer;
 }
 
 .suggestion-item:hover {
-    background: #f0f0f0;
+    background: #b6b6b6;
 }

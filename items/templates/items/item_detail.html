@@ -79,8 +79,8 @@
 
             {% endif %}
 
-            <a href="{% url item.post_type|add:'_list' %}" class="btn btn-outline" style="margin-top: 20px;">
-                ⬅ Back to list
+            <a href="{{ request.session.last_list_url|default:request.META.HTTP_REFERER|default:'/' }}" class="btn btn-outline" style="margin-top: 20px;">
+                ⬅ Back
             </a>
 
         </div>

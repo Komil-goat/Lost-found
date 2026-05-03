@@ -121,6 +121,9 @@ def delete_item(request, item_id):
 @login_required
 def item_detail(request, item_id):
     item = get_object_or_404(ItemPost, id=item_id)
+
+    request.session['last_list_url'] = request.META.get('HTTP_REFERER')
+
     return render(request, 'items/item_detail.html', {
         'item': item
     })
