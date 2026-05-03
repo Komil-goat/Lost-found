@@ -68,7 +68,6 @@ input:focus, textarea:focus {
     box-shadow: 0 0 0 3px rgba(0,47,100,0.1);
 }
 
-/* Buttons */
 .btn {
     display: block;
     width: 100%;

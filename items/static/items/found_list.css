@@ -34,7 +34,7 @@ body {
 
 .items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 325px));
     gap: 20px;
 }
 
@@ -44,6 +44,7 @@ body {
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: 0.3s;
+    width: 100%;
 }
 
 .item-card:hover {
@@ -122,7 +123,7 @@ body {
 }
 
 .btn-danger {
-    background: #e74c3c;
+    background: #b42318;
     color: white;
 }
 
