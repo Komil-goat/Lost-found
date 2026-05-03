@@ -18,9 +18,9 @@
 
             <h1>
                 {% if post_type == "found" %}
-                🔍 Items that people found
+                🔍Items that people found
                 {% else %}
-                ❗ Items people lost
+                ❗Items people lost
                 {% endif %}
             </h1>
 
@@ -114,28 +114,35 @@
                     </div>
                     {% endif %}
 
-                    {% if item.user.phone_number %}
-                    <button onclick="
-                        const p = this.nextElementSibling;
-                        p.style.display = (p.style.display === 'block') ? 'none' : 'block';
-                    ">
-                        📞 Contact
-                    </button>
+                    <div class="action-row">
 
-                    <p style="display:none;">
-                        {{ item.user.phone_number }}
-                    </p>
-                    {% endif %}
+                        {% if item.user.phone_number %}
+                        <div class="contact-block">
+                            <button class="btn btn-primary contact-btn" onclick="
+                                this.nextElementSibling.classList.toggle('show');
+                            ">
+                                📞 Contact
+                            </button>
 
-                    {% if user.is_authenticated and user != item.user and not item.claimed %}
-                    <a href="{% url 'claim_item' item.id %}" class="btn btn-primary">
-                        ✔ Claim Item
-                    </a>
-                    {% endif %}
+                            <p class="phone">
+                                {{ item.user.phone_number }}
+                            </p>
+                        </div>
+                        {% endif %}
 
-                    {% if item.claimed %}
-                    <span class="claimed">✅ Claimed</span>
-                    {% endif %}
+                        {% if user.is_authenticated and user != item.user %}
+
+                            {% if item.claimed %}
+                                <span class="claimed">✅ Claimed</span>
+                            {% else %}
+                                <a href="{% url 'claim_item' item.id %}" class="btn btn-primary">
+                                    ✔ Claim Item
+                                </a>
+                            {% endif %}
+
+                        {% endif %}
+
+                    </div>
 
                     {% if user == item.user %}
 
