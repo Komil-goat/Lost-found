@@ -17,7 +17,9 @@
     <div class="item-card" style="max-width: 800px; margin: auto;">
 
         {% if item.image %}
-        <img class="item-image" src="{{ item.image.url }}" style="height: 350px; object-fit: cover;">
+        <img class="item-image" src="{{ item.image.url }}" style="height: 350px;">
+        {% else %}
+            <img class="item-image" src="{% static 'items/no-image.png' %}" style="height: 350px;">
         {% endif %}
 
         <div class="item-content">
@@ -62,7 +64,7 @@
             </a>
             {% endif %}
 
-            {% if user == item.user %}
+            {% if user == item.user and not item.claimed %}
 
             <div class="owner-actions" style="margin-top: 15px;">
 
